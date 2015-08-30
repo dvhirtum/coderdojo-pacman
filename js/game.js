@@ -6,6 +6,7 @@
         cellsize = 24,
         scaleFactor = 0.25,
         spriteImage = document.getElementById("sprites"),
+        level,
         pacman,
         now,
         last = window.timestamp(),
@@ -16,6 +17,7 @@
         context.fillStyle = "black";
         context.fillRect(0, 0, width, height);
 
+        level.draw();
         pacman.draw();
     }
     
@@ -38,6 +40,10 @@
     }
     
     function init() {
+        level = new Level({
+            context: context,
+            image: spriteImage
+        });
         pacman = new PacMan({
             context: context,
             image: spriteImage,

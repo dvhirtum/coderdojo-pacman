@@ -3,40 +3,38 @@ function PacMan (options) {
                     
     self.context = options.context;
     self.image = options.image;
-    self.scaleFactor = options.scaleFactor || 0.25;
-    self.cellsize = options.cellsize || 24;
-    self.width = 96;
-    self.height = 96;
+    self.size = 96;
+    self.cellsize = 24;
     self.x = 13 * self.cellsize;
     self.y = 23 * self.cellsize;
 
     self.animations = {
         idle: [
-            {x: 1, y: 672}
+            {x: 0, y: 672}
         ],
         left: [
-            {x: 1, y: 672},
-            {x: 197, y: 288},
-            {x: 5, y: 288},
-            {x: 197, y: 288}
+            {x: 0, y: 672},
+            {x: 196, y: 288},
+            {x: 4, y: 288},
+            {x: 196, y: 288}
         ],
         right: [
-            {x: 1, y: 672},
-            {x: 581, y: 288},
-            {x: 389, y: 288},
-            {x: 581, y: 288}
+            {x: 0, y: 672},
+            {x: 580, y: 288},
+            {x: 388, y: 288},
+            {x: 580, y: 288}
         ],
         up: [
-            {x: 1, y: 672},
-            {x: 293, y: 288},
-            {x: 101, y: 288},
-            {x: 293, y: 288}
+            {x: 0, y: 672},
+            {x: 292, y: 288},
+            {x: 100, y: 288},
+            {x: 292, y: 288}
         ],
         down: [
-            {x: 1, y: 672},
-            {x: 674, y: 288},
-            {x: 482, y: 288},
-            {x: 674, y: 288}
+            {x: 0, y: 672},
+            {x: 676, y: 288},
+            {x: 484, y: 288},
+            {x: 676, y: 288}
         ]
     }
 
@@ -49,12 +47,12 @@ function PacMan (options) {
                self.image,
                self.activeAnimation[self.activeAnimationState].x,
                self.activeAnimation[self.activeAnimationState].y,
-               self.width,
-               self.height,
+               self.size,
+               self.size,
                self.x,
                self.y,
-               self.width * self.scaleFactor,
-               self.height * self.scaleFactor);
+               self.size * 0.5,
+               self.size * 0.5);
         },
         update: function () {
             self.activeAnimationState++;
