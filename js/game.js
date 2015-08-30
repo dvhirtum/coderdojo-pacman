@@ -3,21 +3,24 @@
 		context = canvas.getContext("2d"),
 		width = canvas.width,
 		height = canvas.height,
-		snake_array,
-		cellwidth = 10,
+        cellsize = 24,
+        scaleFactor = 0.25,
+        spriteImage = document.getElementById("sprites"),
+        pacman,
         now,
         last = window.timestamp(),
         dt = 0,
         step = 0.05;
 
     function draw() {
-        context.fillStyle = "white";
+        context.fillStyle = "black";
         context.fillRect(0, 0, width, height);
-        context.strokeStyle = "black";
-        context.strokeRect(0, 0, width, height);
+
+        pacman.draw();
     }
     
 	function update() {
+        pacman.update();
 	}
 
     function run() {
@@ -35,6 +38,13 @@
     }
     
     function init() {
+        pacman = new PacMan({
+            context: context,
+            image: spriteImage,
+            scaleFactor: scaleFactor,
+            cellsize: cellsize
+        });
+
         window.onEachFrame(run);
     }
 
