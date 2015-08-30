@@ -4,9 +4,8 @@ function PacMan (options) {
     self.context = options.context;
     self.image = options.image;
     self.size = 96;
-    self.cellsize = 24;
-    self.x = 314;
-    self.y = 588;
+    self.x = 316;
+    self.y = 592;
 
     self.animations = {
         idle: [
@@ -51,8 +50,8 @@ function PacMan (options) {
                self.size,
                self.x,
                self.y,
-               self.size * 0.5,
-               self.size * 0.5);
+               44,
+               44);
         },
         update: function () {
             self.activeAnimationState++;
