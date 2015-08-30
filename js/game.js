@@ -20,7 +20,7 @@
         level.draw();
         pacman.draw();
     }
-    
+
 	function update() {
         pacman.update();
 	}
@@ -28,17 +28,17 @@
     function run() {
         now = window.timestamp();
         dt = dt + Math.min(1, (now - last) / 1000);
-        
+
         while (dt > step) {
             dt = dt - step;
             update();
         }
-        
+
         last = now;
-        
+
         draw();
     }
-    
+
     function init() {
         level = new Level({
             context: context,

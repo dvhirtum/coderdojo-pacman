@@ -1,12 +1,12 @@
 function PacMan (options) {
     var self = this;
-                    
+
     self.context = options.context;
     self.image = options.image;
     self.size = 96;
     self.cellsize = 24;
-    self.x = 13 * self.cellsize;
-    self.y = 23 * self.cellsize;
+    self.x = 314;
+    self.y = 588;
 
     self.animations = {
         idle: [
@@ -38,7 +38,7 @@ function PacMan (options) {
         ]
     }
 
-    self.activeAnimation = self.animations.idle;
+    self.activeAnimation = self.animations.left;
     self.activeAnimationState = 0;
 
     return {
