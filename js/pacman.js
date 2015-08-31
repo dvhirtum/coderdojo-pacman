@@ -1,63 +1,63 @@
+PacMan.prototype = new GameObject();
+PacMan.prototype.constructor = PacMan;
+
 function PacMan (options) {
-    var self = this;
+  GameObject.call(this, options);
 
-    self.context = options.context;
-    self.image = options.image;
-    self.size = 96;
-    self.x = 316;
-    self.y = 592;
+  this.size = 96;
+  this.x = 316;
+  this.y = 592;
 
-    self.animations = {
-        idle: [
-            {x: 0, y: 672}
-        ],
-        left: [
-            {x: 0, y: 672},
-            {x: 196, y: 288},
-            {x: 4, y: 288},
-            {x: 196, y: 288}
-        ],
-        right: [
-            {x: 0, y: 672},
-            {x: 580, y: 288},
-            {x: 388, y: 288},
-            {x: 580, y: 288}
-        ],
-        up: [
-            {x: 0, y: 672},
-            {x: 292, y: 288},
-            {x: 100, y: 288},
-            {x: 292, y: 288}
-        ],
-        down: [
-            {x: 0, y: 672},
-            {x: 676, y: 288},
-            {x: 484, y: 288},
-            {x: 676, y: 288}
-        ]
-    }
+  this.animations = {
+    idle: [
+      {x: 0, y: 672}
+    ],
+    left: [
+      {x: 0, y: 672},
+      {x: 196, y: 288},
+      {x: 4, y: 288},
+      {x: 196, y: 288}
+    ],
+    right: [
+      {x: 0, y: 672},
+      {x: 580, y: 288},
+      {x: 388, y: 288},
+      {x: 580, y: 288}
+    ],
+    up: [
+      {x: 0, y: 672},
+      {x: 292, y: 288},
+      {x: 100, y: 288},
+      {x: 292, y: 288}
+    ],
+    down: [
+      {x: 0, y: 672},
+      {x: 676, y: 288},
+      {x: 484, y: 288},
+      {x: 676, y: 288}
+    ]
+  };
 
-    self.activeAnimation = self.animations.left;
-    self.activeAnimationState = 0;
-
-    return {
-        draw: function () {
-            self.context.drawImage(
-               self.image,
-               self.activeAnimation[self.activeAnimationState].x,
-               self.activeAnimation[self.activeAnimationState].y,
-               self.size,
-               self.size,
-               self.x,
-               self.y,
-               44,
-               44);
-        },
-        update: function () {
-            self.activeAnimationState++;
-            if (self.activeAnimationState >= self.activeAnimation.length) {
-                self.activeAnimationState = 0;
-            }
-        }
-    };
+  this.activeAnimation = this.animations.left;
+  this.activeAnimationState = 0;
 }
+
+PacMan.prototype.draw = function () {
+  this.context.drawImage(
+    this.image,
+    this.activeAnimation[this.activeAnimationState].x,
+    this.activeAnimation[this.activeAnimationState].y,
+    this.size,
+    this.size,
+    this.x,
+    this.y,
+    44,
+    44);
+};
+
+PacMan.prototype.update = function () {
+  this.activeAnimationState++;
+  if (this.activeAnimationState >= this.activeAnimation.length) {
+    this.activeAnimationState = 0;
+  }
+};
