@@ -6,6 +6,7 @@
       spriteImage = document.getElementById("sprites"),
       level,
       pacman,
+      direction = "",
       now,
       last = window.timestamp(),
       dt = 0,
@@ -20,7 +21,7 @@
   }
 
   function update() {
-    pacman.update();
+    pacman.update(direction);
   }
 
   function run() {
@@ -39,10 +40,24 @@
 
   function init() {
     level = new Level({context: context, image: spriteImage});
-    pacman = new PacMan({context: context, image: spriteImage});
+    pacman = new PacMan({context: context, image: spriteImage, canvasWidth: width});
 
     window.onEachFrame(run);
   }
+
+  document.onkeydown = function (e) {
+    var key = e.which;
+
+    if (key === 37) {
+      direction = "left";
+    } else if (key === 38) {
+      direction = "up";
+    } else if (key === 39) {
+      direction = "right";
+    } else if (key === 40) {
+      direction = "down";
+    }
+  };
 
   init();
 }());

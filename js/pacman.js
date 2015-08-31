@@ -4,10 +4,12 @@ PacMan.prototype.constructor = PacMan;
 function PacMan (options) {
   GameObject.call(this, options);
 
+  this.canvasWidth = options.canvasWidth;
   this.size = 96;
   this.width = 44;
   this.x = 316;
   this.y = 592;
+  this.step = 10;
 
   this.animations = {
     idle: [
@@ -39,7 +41,7 @@ function PacMan (options) {
     ]
   };
 
-  this.activeAnimation = this.animations.left;
+  this.activeAnimation = this.animations.idle;
   this.activeAnimationState = 0;
 }
 
@@ -56,7 +58,29 @@ PacMan.prototype.draw = function () {
     this.width);
 };
 
-PacMan.prototype.update = function () {
+PacMan.prototype.update = function (direction) {
+  if (direction === "left") {
+    this.x -= this.step;
+    this.activeAnimation = this.animations.left;
+  } else if (direction === "right") {
+    this.x += this.step;
+    this.activeAnimation = this.animations.right;
+  } else if (direction === "up") {
+    this.y -= this.step;
+    this.activeAnimation = this.animations.up;
+  } else if (direction === "down") {
+    this.y += this.step;
+    this.activeAnimation = this.animations.down;
+  } else {
+    this.activeAnimation = this.animations.idle;
+  }
+
+  if (this.x + this.width < 0) {
+    this.x = this.canvasWidth;
+  } else if (this.x > this.canvasWidth) {
+    this.x = -1 * this.width;
+  }
+
   this.activeAnimationState++;
   if (this.activeAnimationState >= this.activeAnimation.length) {
     this.activeAnimationState = 0;
