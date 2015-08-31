@@ -10,7 +10,7 @@
       now,
       last = window.timestamp(),
       dt = 0,
-      step = 0.05;
+      step = 0.04;
 
   function draw() {
     context.fillStyle = "black";
@@ -41,7 +41,7 @@
 
   function init() {
     level = new Level({context: context, image: spriteImage, x: 0, y: 48});
-    pacman = new PacMan({context: context, image: spriteImage, canvasWidth: width, level: level, x: 316, y: 592});
+    pacman = new PacMan({context: context, image: spriteImage, canvasWidth: width, level: level, x: 317, y: 593});
 
     window.onEachFrame(run);
   }
