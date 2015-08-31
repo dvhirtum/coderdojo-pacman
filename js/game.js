@@ -40,7 +40,7 @@
 
   function init() {
     level = new Level({context: context, image: spriteImage});
-    pacman = new PacMan({context: context, image: spriteImage, canvasWidth: width});
+    pacman = new PacMan({context: context, image: spriteImage, canvasWidth: width, level: level});
 
     window.onEachFrame(run);
   }

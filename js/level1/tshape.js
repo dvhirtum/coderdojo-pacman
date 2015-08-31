@@ -28,4 +28,9 @@ function TShape (options) {
     {block: this.blocks.bottomLeft2, x: 3, y: 4},
     {block: this.blocks.bottomRight2, x: 4, y: 4}
   ];
+
+  this.boundingBoxes = [
+    new BoundingBox(this.x + 12, this.y + 12, 168, 24),
+    new BoundingBox(this.x + 12 + 72, this.y + 12 + 24, 24, 72)
+  ];
 }

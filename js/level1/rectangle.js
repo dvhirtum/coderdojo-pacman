@@ -24,4 +24,8 @@ function Rectangle (options) {
     this.images.push({block: this.blocks.leftVertical2, x: 0, y: r});
     this.images.push({block: this.blocks.rightVertical2, x: numberOfColumns - 1, y: r});
   }
+
+  this.boundingBoxes = [
+    new BoundingBox(this.x + 12, this.y + 12, numberOfColumns * this.cellsize - 24, numberOfRows * this.cellsize - 24)
+  ];
 }

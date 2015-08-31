@@ -28,4 +28,9 @@ function FlippedT1 (options) {
     {block: this.blocks.bottomLeft2, x: 0, y: 7},
     {block: this.blocks.bottomRight2, x: 1, y: 7}
   ];
+
+  this.boundingBoxes = [
+    new BoundingBox(this.x + 12, this.y + 12, 24, 168),
+    new BoundingBox(this.x + 12, this.y + 12 + 72, 96, 24)
+  ];
 }

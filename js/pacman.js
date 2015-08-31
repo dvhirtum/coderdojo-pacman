@@ -5,11 +5,12 @@ function PacMan (options) {
   GameObject.call(this, options);
 
   this.canvasWidth = options.canvasWidth;
+  this.level = options.level;
   this.size = 96;
   this.width = 44;
   this.x = 316;
   this.y = 592;
-  this.step = 10;
+  this.step = 6;
 
   this.animations = {
     idle: [
@@ -41,9 +42,36 @@ function PacMan (options) {
     ]
   };
 
+  this.currentDirection = "";
   this.activeAnimation = this.animations.idle;
   this.activeAnimationState = 0;
+
+  this.boundingBoxes = [
+    new BoundingBox(this.x, this.y, this.width, this.width)
+  ];
 }
+
+PacMan.prototype.getNewPosition = function (direction) {
+  var position = {x: this.x, y: this.y};
+
+  if (direction === "left") {
+    position.x -= this.step;
+  } else if (direction === "right") {
+    position.x += this.step;
+  } else if (direction === "up") {
+    position.y -= this.step;
+  } else if (direction === "down") {
+    position.y += this.step;
+  }
+
+  if (position.x + this.width < 0) {
+    position.x = this.canvasWidth + 4;
+  } else if (position.x > this.canvasWidth) {
+    position.x = -1 * this.width;
+  }
+
+  return position;
+};
 
 PacMan.prototype.draw = function () {
   this.context.drawImage(
@@ -59,27 +87,45 @@ PacMan.prototype.draw = function () {
 };
 
 PacMan.prototype.update = function (direction) {
+  var newPosition = this.getNewPosition(direction);
+  var testObject = new GameObject();
+  testObject.boundingBoxes = [
+    new BoundingBox(newPosition.x, newPosition.y, this.width, this.width)
+  ];
+
+  for (var i = 0; i < this.level.gameObjects.length; i++) {
+    if (this.level.gameObjects[i].checkCollision(testObject)) {
+      if (direction === this.currentDirection) {
+        direction = "";
+        this.activeAnimation = this.animations.idle;
+      } else {
+        direction = this.currentDirection;
+        newPosition = this.getNewPosition(direction);
+      }
+    }
+  }
+
+  this.currentDirection = direction;
+  if (this.currentDirection !== "") {
+    this.x = newPosition.x;
+    this.y = newPosition.y;
+  }
+
   if (direction === "left") {
-    this.x -= this.step;
     this.activeAnimation = this.animations.left;
   } else if (direction === "right") {
-    this.x += this.step;
     this.activeAnimation = this.animations.right;
   } else if (direction === "up") {
-    this.y -= this.step;
     this.activeAnimation = this.animations.up;
   } else if (direction === "down") {
-    this.y += this.step;
     this.activeAnimation = this.animations.down;
   } else {
     this.activeAnimation = this.animations.idle;
   }
 
-  if (this.x + this.width < 0) {
-    this.x = this.canvasWidth;
-  } else if (this.x > this.canvasWidth) {
-    this.x = -1 * this.width;
-  }
+  this.boundingBoxes = [
+    new BoundingBox(this.x, this.y, this.width, this.width)
+  ];
 
   this.activeAnimationState++;
   if (this.activeAnimationState >= this.activeAnimation.length) {

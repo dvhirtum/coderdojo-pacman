@@ -26,4 +26,12 @@ function GhostBox (options) {
     {block: this.blocks.topHorizontal1, x: 6, y: 4},
     {block: this.blocks.bottomRight4, x: 7, y: 4}
   ];
+
+  this.boundingBoxes = [
+    new BoundingBox(this.x + 12, this.y + 12, 60, 12),
+    new BoundingBox(this.x + 12 + 108, this.y + 12, 60, 12),
+    new BoundingBox(this.x + 12, this.y + 12, 12, 96),
+    new BoundingBox(this.x + 12, this.y + 12 + 84, 168, 12),
+    new BoundingBox(this.x + 12 + 156, this.y + 12, 12, 96)
+  ];
 }

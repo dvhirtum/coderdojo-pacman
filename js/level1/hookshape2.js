@@ -20,4 +20,9 @@ function HookShape2 (options) {
     {block: this.blocks.bottomLeft2, x: 0, y: 4},
     {block: this.blocks.bottomRight2, x: 1, y: 4}
   ];
+
+  this.boundingBoxes = [
+    new BoundingBox(this.x + 12, this.y + 12, 72, 24),
+    new BoundingBox(this.x + 12, this.y + 12 + 24, 24, 72)
+  ];
 }
