@@ -22,6 +22,7 @@
 
   function update() {
     pacman.update(direction);
+    level.update(pacman);
   }
 
   function run() {
@@ -39,8 +40,8 @@
   }
 
   function init() {
-    level = new Level({context: context, image: spriteImage});
-    pacman = new PacMan({context: context, image: spriteImage, canvasWidth: width, level: level});
+    level = new Level({context: context, image: spriteImage, x: 0, y: 48});
+    pacman = new PacMan({context: context, image: spriteImage, canvasWidth: width, level: level, x: 316, y: 592});
 
     window.onEachFrame(run);
   }

@@ -6,10 +6,10 @@ function PacMan (options) {
 
   this.canvasWidth = options.canvasWidth;
   this.level = options.level;
+  this.x = options.x;
+  this.y = options.y;
   this.size = 96;
   this.width = 44;
-  this.x = 316;
-  this.y = 592;
   this.step = 6;
 
   this.animations = {
@@ -47,7 +47,8 @@ function PacMan (options) {
   this.activeAnimationState = 0;
 
   this.boundingBoxes = [
-    new BoundingBox(this.x, this.y, this.width, this.width)
+    new BoundingBox(this.x + (this.width / 4), this.y, (this.width / 2), this.width),
+    new BoundingBox(this.x, this.y + (this.width / 4), this.width, (this.width / 2)),
   ];
 }
 
@@ -74,6 +75,11 @@ PacMan.prototype.getNewPosition = function (direction) {
 };
 
 PacMan.prototype.draw = function () {
+  // for (var i = 0; i < this.boundingBoxes.length; i++) {
+  //   var box = this.boundingBoxes[i];
+  //   this.context.fillStyle = "red";
+  //   this.context.fillRect(box.x, box.y, box.width, box.height);
+  // }
   this.context.drawImage(
     this.image,
     this.activeAnimation[this.activeAnimationState].x,
@@ -124,7 +130,8 @@ PacMan.prototype.update = function (direction) {
   }
 
   this.boundingBoxes = [
-    new BoundingBox(this.x, this.y, this.width, this.width)
+    new BoundingBox(this.x + 8, this.y, 22, 38),
+    new BoundingBox(this.x, this.y + 8, 38, 22),
   ];
 
   this.activeAnimationState++;
