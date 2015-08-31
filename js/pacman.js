@@ -5,6 +5,7 @@ function PacMan (options) {
   GameObject.call(this, options);
 
   this.size = 96;
+  this.width = 44;
   this.x = 316;
   this.y = 592;
 
@@ -51,8 +52,8 @@ PacMan.prototype.draw = function () {
     this.size,
     this.x,
     this.y,
-    44,
-    44);
+    this.width,
+    this.width);
 };
 
 PacMan.prototype.update = function () {

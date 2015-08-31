@@ -1,7 +1,5 @@
 function Level (options) {
-  var self = this;
-
-  self.shapes = [
+  this.gameObjects = [
     new Outline({context: options.context, image: options.image, x: 0, y: 48}),
     new Rectangle({context: options.context, image: options.image, x: 48, y: 96, width: 96, height: 72}),
     new Rectangle({context: options.context, image: options.image, x: 168, y: 96, width: 120, height: 72}),
@@ -24,12 +22,10 @@ function Level (options) {
     new FlippedT1({context: options.context, image: options.image, x: 168, y: 192}),
     new FlippedT2({context: options.context, image: options.image, x: 384, y: 192})
   ];
-
-  return {
-  	draw: function () {
-      for (var i = 0; i < self.shapes.length; i++) {
-        self.shapes[i].draw();
-      }
-  	}
-  };
 }
+
+Level.prototype.draw = function () {
+  for (var i = 0; i < this.gameObjects.length; i++) {
+    this.gameObjects[i].draw();
+  }
+};
