@@ -31,3 +31,11 @@ GameObject.prototype.checkCollision = function (otherObject) {
   }
   return false;
 };
+
+GameObject.prototype.draw = function () {
+  for (var i = 0; i < this.boundingBoxes.length; i++) {
+    var box = this.boundingBoxes[i];
+    this.context.fillStyle = "magenta";
+    this.context.fillRect(box.x, box.y, box.width, box.height);
+  }
+};

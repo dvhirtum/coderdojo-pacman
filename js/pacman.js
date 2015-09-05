@@ -52,8 +52,7 @@ function PacMan (options) {
 
 PacMan.prototype.updateBoundingBox = function () {
   this.boundingBoxes = [
-    new BoundingBox(this.x + 8, this.y, 22, 37),
-    new BoundingBox(this.x, this.y + 8, 37, 22),
+    new BoundingBox(this.x, this.y, 37, 37),
   ];
 };
 
