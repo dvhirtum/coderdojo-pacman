@@ -30,7 +30,7 @@ function TShape (options) {
   ];
 
   this.boundingBoxes = [
-    new BoundingBox(this.x + 12, this.y + 12, 168, 24),
-    new BoundingBox(this.x + 12 + 72, this.y + 12 + 24, 24, 72)
+    new BoundingBox(12, 12, 168, 24),
+    new BoundingBox(84, 36, 24, 72)
   ];
 }

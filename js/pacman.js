@@ -47,14 +47,10 @@ function PacMan (options) {
   this.activeAnimation = this.animations.idle;
   this.activeAnimationState = 0;
 
-  this.updateBoundingBox();
-}
-
-PacMan.prototype.updateBoundingBox = function () {
   this.boundingBoxes = [
-    new BoundingBox(this.x, this.y, 37, 37),
+    new BoundingBox(0, 0, 40, 40),
   ];
-};
+}
 
 PacMan.prototype.getNewPosition = function (direction) {
   var position = {x: this.x, y: this.y};
@@ -91,44 +87,56 @@ PacMan.prototype.draw = function () {
     this.width);
 };
 
-PacMan.prototype.update = function (direction) {
+PacMan.prototype.updatePosition = function (direction) {
   var newPosition = this.getNewPosition(direction);
-  var testObject = new GameObject();
-  testObject.boundingBoxes = [
-    new BoundingBox(newPosition.x, newPosition.y, this.width, this.width)
-  ];
+  this.x = newPosition.x;
+  this.y = newPosition.y;
+};
 
+PacMan.prototype.hasCollidedWithWall = function () {
   for (var i = 0; i < this.level.gameObjects.length; i++) {
-    if (this.level.gameObjects[i].checkCollision(testObject)) {
-      if (direction === this.currentDirection) {
-        direction = "";
-        this.activeAnimation = this.animations.idle;
-      } else {
-        direction = this.currentDirection;
-        newPosition = this.getNewPosition(direction);
-      }
+    if (this.level.gameObjects[i].checkCollision(this)) {
+      return true;
     }
   }
 
-  this.currentDirection = direction;
-  if (this.currentDirection !== "") {
-    this.x = newPosition.x;
-    this.y = newPosition.y;
+  return false;
+}
+
+PacMan.prototype.update = function (direction) {
+  var oldPosition = {x: this.x, y: this.y};
+  this.updatePosition(direction);
+
+  if (this.hasCollidedWithWall()) {
+    this.x = oldPosition.x;
+    this.y = oldPosition.y;
+
+    if (this.currentDirection === direction) {
+      this.currentDirection = "";
+    } else {
+      this.updatePosition(this.currentDirection);
+
+      if (this.hasCollidedWithWall()) {
+        this.x = oldPosition.x;
+        this.y = oldPosition.y;
+        this.currentDirection = "";
+      }
+    }
+  } else {
+    this.currentDirection = direction;
   }
 
-  if (direction === "left") {
+  if (this.currentDirection === "left") {
     this.activeAnimation = this.animations.left;
-  } else if (direction === "right") {
+  } else if (this.currentDirection === "right") {
     this.activeAnimation = this.animations.right;
-  } else if (direction === "up") {
+  } else if (this.currentDirection === "up") {
     this.activeAnimation = this.animations.up;
-  } else if (direction === "down") {
+  } else if (this.currentDirection === "down") {
     this.activeAnimation = this.animations.down;
   } else {
     this.activeAnimation = this.animations.idle;
   }
-
-  this.updateBoundingBox();
 
   this.activeAnimationState++;
   if (this.activeAnimationState >= this.activeAnimation.length) {

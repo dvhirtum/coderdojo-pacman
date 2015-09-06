@@ -176,18 +176,18 @@ function Outline (options) {
   ];
 
   this.boundingBoxes = [
-    new BoundingBox(this.x, this.y, 672, 12),
-    new BoundingBox(this.x + 324, this.y, 24, 108),
-    new BoundingBox(this.x, this.y, 12, 324),
-    new BoundingBox(this.x, this.y + 228, 132, 96),
-    new BoundingBox(this.x, this.y + 372, 132, 96),
-    new BoundingBox(this.x, this.y + 372, 12, 372),
-    new BoundingBox(this.x, this.y + 588, 60, 24),
-    new BoundingBox(this.x, this.y + 732, 672, 12),
-    new BoundingBox(this.x + 660, this.y, 12, 324),
-    new BoundingBox(this.x + 540, this.y + 228, 132, 96),
-    new BoundingBox(this.x + 540, this.y + 372, 132, 96),
-    new BoundingBox(this.x + 660, this.y + 372, 12, 372),
-    new BoundingBox(this.x + 612, this.y + 588, 60, 24)
+    new BoundingBox(0, 0, 672, 12),
+    new BoundingBox(324, 0, 24, 108),
+    new BoundingBox(0, 0, 12, 324),
+    new BoundingBox(0, 228, 132, 96),
+    new BoundingBox(0, 372, 132, 96),
+    new BoundingBox(0, 372, 12, 372),
+    new BoundingBox(0, 588, 60, 24),
+    new BoundingBox(0, 732, 672, 12),
+    new BoundingBox(660, 0, 12, 324),
+    new BoundingBox(540, 228, 132, 96),
+    new BoundingBox(540, 372, 132, 96),
+    new BoundingBox(660, 372, 12, 372),
+    new BoundingBox(612, 588, 60, 24)
   ];
 }

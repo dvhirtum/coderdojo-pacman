@@ -34,7 +34,7 @@ function InvertedT1 (options) {
   ];
 
   this.boundingBoxes = [
-    new BoundingBox(this.x + 12 + 120, this.y + 12, 24, 72),
-    new BoundingBox(this.x + 12, this.y + 12 + 72, 216, 24)
+    new BoundingBox(132, 12, 24, 72),
+    new BoundingBox(12, 84, 216, 24)
   ];
 }

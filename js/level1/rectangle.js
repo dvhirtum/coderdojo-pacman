@@ -26,6 +26,6 @@ function Rectangle (options) {
   }
 
   this.boundingBoxes = [
-    new BoundingBox(this.x + 12, this.y + 12, numberOfColumns * this.cellsize - 24, numberOfRows * this.cellsize - 24)
+    new BoundingBox(12, 12, numberOfColumns * this.cellsize - 24, numberOfRows * this.cellsize - 24)
   ];
 }

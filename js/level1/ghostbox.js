@@ -28,10 +28,10 @@ function GhostBox (options) {
   ];
 
   this.boundingBoxes = [
-    new BoundingBox(this.x + 12, this.y + 12, 60, 12),
-    new BoundingBox(this.x + 12 + 108, this.y + 12, 60, 12),
-    new BoundingBox(this.x + 12, this.y + 12, 12, 96),
-    new BoundingBox(this.x + 12, this.y + 12 + 84, 168, 12),
-    new BoundingBox(this.x + 12 + 156, this.y + 12, 12, 96)
+    new BoundingBox(12, 12, 60, 12),
+    new BoundingBox(120, 12, 60, 12),
+    new BoundingBox(12, 12, 12, 96),
+    new BoundingBox(12, 96, 168, 12),
+    new BoundingBox(168, 12, 12, 96)
   ];
 }

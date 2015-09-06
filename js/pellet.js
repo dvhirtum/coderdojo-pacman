@@ -7,7 +7,7 @@ function Pellet (options) {
   this.width = 12;
 
   this.boundingBoxes = [
-    new BoundingBox(this.x + 6, this.y + 6, this.width - 6, this.width - 6)
+    new BoundingBox(10, 10, this.width - 8, this.width - 8)
   ];
 }
 

@@ -22,7 +22,7 @@ function HookShape2 (options) {
   ];
 
   this.boundingBoxes = [
-    new BoundingBox(this.x + 12, this.y + 12, 72, 24),
-    new BoundingBox(this.x + 12, this.y + 12 + 24, 24, 72)
+    new BoundingBox(12, 12, 72, 24),
+    new BoundingBox(12, 36, 24, 72)
   ];
 }
