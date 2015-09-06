@@ -1,19 +1,13 @@
-PacMan.prototype = new GameObject();
-PacMan.prototype.constructor = PacMan;
+var PacMan = (function () {
+  PacMan.prototype = new GameObject();
+  PacMan.prototype.constructor = PacMan;
 
-function PacMan (options) {
-  GameObject.call(this, options);
+  var originalWidth = 92;
+  var originalHeight = 88;
+  var width = 40;
+  var step = 6;
 
-  this.canvasWidth = options.canvasWidth;
-  this.level = options.level;
-  this.x = options.x;
-  this.y = options.y;
-  this.originalWidth = 92;
-  this.originalHeight = 88;
-  this.width = 40;
-  this.step = 6;
-
-  this.animations = {
+  var animations = {
     idle: [
       {x: 0, y: 672}
     ],
@@ -43,103 +37,114 @@ function PacMan (options) {
     ]
   };
 
-  this.currentDirection = "";
-  this.activeAnimation = this.animations.idle;
-  this.activeAnimationState = 0;
+  var currentDirection = "";
+  var activeAnimation = animations.idle;
+  var activeAnimationState = 0;
 
-  this.boundingBoxes = [
-    new BoundingBox(0, 0, 40, 40),
-  ];
-}
+  function PacMan (options) {
+    GameObject.call(this, options);
 
-PacMan.prototype.getNewPosition = function (direction) {
-  var position = {x: this.x, y: this.y};
+    this.canvasWidth = options.canvasWidth;
+    this.level = options.level;
+    this.x = options.x;
+    this.y = options.y;
 
-  if (direction === "left") {
-    position.x -= this.step;
-  } else if (direction === "right") {
-    position.x += this.step;
-  } else if (direction === "up") {
-    position.y -= this.step;
-  } else if (direction === "down") {
-    position.y += this.step;
+    this.boundingBoxes = [
+      new BoundingBox(0, 0, 40, 40),
+    ];
   }
 
-  if (position.x + this.width < 0) {
-    position.x = this.canvasWidth + 4;
-  } else if (position.x > this.canvasWidth) {
-    position.x = -1 * this.width;
-  }
+  PacMan.prototype.draw = function () {
+    this.context.drawImage(
+      this.image,
+      activeAnimation[activeAnimationState].x,
+      activeAnimation[activeAnimationState].y,
+      originalWidth,
+      originalHeight,
+      this.x,
+      this.y,
+      width,
+      width);
+  };
 
-  return position;
-};
+  PacMan.prototype.update = function (direction) {
+    var oldPosition = {x: this.x, y: this.y};
+    updatePosition.call(this, direction);
 
-PacMan.prototype.draw = function () {
-  this.context.drawImage(
-    this.image,
-    this.activeAnimation[this.activeAnimationState].x,
-    this.activeAnimation[this.activeAnimationState].y,
-    this.originalWidth,
-    this.originalHeight,
-    this.x,
-    this.y,
-    this.width,
-    this.width);
-};
+    if (hasCollidedWithWall.call(this)) {
+      this.x = oldPosition.x;
+      this.y = oldPosition.y;
 
-PacMan.prototype.updatePosition = function (direction) {
-  var newPosition = this.getNewPosition(direction);
-  this.x = newPosition.x;
-  this.y = newPosition.y;
-};
+      if (currentDirection === direction) {
+        currentDirection = "";
+      } else {
+        updatePosition.call(this, currentDirection);
 
-PacMan.prototype.hasCollidedWithWall = function () {
-  for (var i = 0; i < this.level.gameObjects.length; i++) {
-    if (this.level.gameObjects[i].checkCollision(this)) {
-      return true;
-    }
-  }
-
-  return false;
-}
-
-PacMan.prototype.update = function (direction) {
-  var oldPosition = {x: this.x, y: this.y};
-  this.updatePosition(direction);
-
-  if (this.hasCollidedWithWall()) {
-    this.x = oldPosition.x;
-    this.y = oldPosition.y;
-
-    if (this.currentDirection === direction) {
-      this.currentDirection = "";
+        if (hasCollidedWithWall.call(this)) {
+          this.x = oldPosition.x;
+          this.y = oldPosition.y;
+          currentDirection = "";
+        }
+      }
     } else {
-      this.updatePosition(this.currentDirection);
+      currentDirection = direction;
+    }
 
-      if (this.hasCollidedWithWall()) {
-        this.x = oldPosition.x;
-        this.y = oldPosition.y;
-        this.currentDirection = "";
+    if (currentDirection === "left") {
+      activeAnimation = animations.left;
+    } else if (currentDirection === "right") {
+      activeAnimation = animations.right;
+    } else if (currentDirection === "up") {
+      activeAnimation = animations.up;
+    } else if (currentDirection === "down") {
+      activeAnimation = animations.down;
+    } else {
+      activeAnimation = animations.idle;
+    }
+
+    activeAnimationState++;
+    if (activeAnimationState >= activeAnimation.length) {
+      activeAnimationState = 0;
+    }
+  };
+
+  function getNewPosition (direction) {
+    var position = {x: this.x, y: this.y};
+
+    if (direction === "left") {
+      position.x -= step;
+    } else if (direction === "right") {
+      position.x += step;
+    } else if (direction === "up") {
+      position.y -= step;
+    } else if (direction === "down") {
+      position.y += step;
+    }
+
+    if (position.x + width < 0) {
+      position.x = this.canvasWidth + 4;
+    } else if (position.x > this.canvasWidth) {
+      position.x = -1 * width;
+    }
+
+    return position;
+  }
+
+  function updatePosition (direction) {
+    var newPosition = getNewPosition.call(this, direction);
+    this.x = newPosition.x;
+    this.y = newPosition.y;
+  }
+
+  function hasCollidedWithWall () {
+    for (var i = 0; i < this.level.gameObjects.length; i++) {
+      if (this.level.gameObjects[i].checkCollision(this)) {
+        return true;
       }
     }
-  } else {
-    this.currentDirection = direction;
+
+    return false;
   }
 
-  if (this.currentDirection === "left") {
-    this.activeAnimation = this.animations.left;
-  } else if (this.currentDirection === "right") {
-    this.activeAnimation = this.animations.right;
-  } else if (this.currentDirection === "up") {
-    this.activeAnimation = this.animations.up;
-  } else if (this.currentDirection === "down") {
-    this.activeAnimation = this.animations.down;
-  } else {
-    this.activeAnimation = this.animations.idle;
-  }
-
-  this.activeAnimationState++;
-  if (this.activeAnimationState >= this.activeAnimation.length) {
-    this.activeAnimationState = 0;
-  }
-};
+  return PacMan;
+}());
