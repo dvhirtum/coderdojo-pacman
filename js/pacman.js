@@ -6,6 +6,7 @@ var PacMan = (function () {
   var originalHeight = 88;
   var width = 40;
   var step = 6;
+  var margin = 4;
 
   var animations = {
     idle: [
@@ -122,9 +123,9 @@ var PacMan = (function () {
     }
 
     if (position.x + width < 0) {
-      position.x = this.canvasWidth + 4;
+      position.x = this.canvasWidth + margin;
     } else if (position.x > this.canvasWidth) {
-      position.x = -1 * width;
+      position.x = -1 * width - margin;
     }
 
     return position;
