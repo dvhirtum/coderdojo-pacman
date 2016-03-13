@@ -1,8 +1,8 @@
 (function () {
   var canvas = document.getElementById("canvas"),
       context = canvas.getContext("2d"),
-      width = canvas.width,
-      height = canvas.height,
+      width,
+      height,
       spriteImage = document.getElementById("sprites"),
       level,
       pacman,
@@ -40,8 +40,13 @@
   }
 
   function init() {
-    level = new Level({context: context, image: spriteImage, x: 0, y: 48});
-    pacman = new PacMan({context: context, image: spriteImage, canvasWidth: width, level: level, x: 317, y: 593});
+    level = new Level({context: context, image: spriteImage});
+    pacman = new PacMan({context: context, image: spriteImage, level: level, position: {x: 264, y: 454}});
+
+    width = level.width;
+    height = level.height;
+    canvas.width = level.width;
+    canvas.height = level.height;
 
     window.onEachFrame(run);
   }

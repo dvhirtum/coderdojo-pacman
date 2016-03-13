@@ -5,22 +5,28 @@ var GameObject = (function () {
     }
     this.context = options.context;
     this.image = options.image;
-    this.x = options.x || 0;
-    this.y = options.y || 0;
+    this.position = options.position || {x: 0, y: 0};
 
     this.boundingBoxes = [];
+    this.isSolid = options.isSolid === undefined ? true : options.isSolid;
   }
 
   GameObject.prototype.draw = function () {
+    if (!this.isSolid) {
+      return;
+    }
+
     for (var i = 0; i < this.boundingBoxes.length; i++) {
       var box = this.boundingBoxes[i];
       this.context.fillStyle = "magenta";
-      this.context.fillRect(this.x + box.x, this.y + box.y, box.width, box.height);
+      this.context.fillRect(this.position.x + box.x, this.position.y + box.y, box.width, box.height);
     }
   };
 
   GameObject.prototype.checkCollision = function (otherObject) {
     if (!(otherObject instanceof GameObject)) {
+      return false;
+    } else if (!(this.isSolid && otherObject.isSolid)) {
       return false;
     }
 
@@ -43,16 +49,16 @@ var GameObject = (function () {
       if (!(otherBox instanceof BoundingBox)) {
         continue;
       }
-      if ((this.x + boundingBox.x + boundingBox.width) <= otherObject.x + otherBox.x) {
+      if ((this.position.x + boundingBox.x + boundingBox.width) <= otherObject.position.x + otherBox.x) {
         continue;
       }
-      if ((otherObject.x + otherBox.x + otherBox.width) <= this.x + boundingBox.x) {
+      if ((otherObject.position.x + otherBox.x + otherBox.width) <= this.position.x + boundingBox.x) {
         continue;
       }
-      if ((this.y + boundingBox.y + boundingBox.height) <= otherObject.y + otherBox.y) {
+      if ((this.position.y + boundingBox.y + boundingBox.height) <= otherObject.position.y + otherBox.y) {
         continue;
       }
-      if ((otherObject.y + otherBox.y + otherBox.height) <= this.y + boundingBox.y) {
+      if ((otherObject.position.y + otherBox.y + otherBox.height) <= this.position.y + boundingBox.y) {
         continue;
       }
 

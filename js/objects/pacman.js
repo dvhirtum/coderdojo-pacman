@@ -2,39 +2,33 @@ var PacMan = (function () {
   PacMan.prototype = new GameObject();
   PacMan.prototype.constructor = PacMan;
 
-  var originalWidth = 92;
-  var originalHeight = 88;
-  var width = 40;
-  var step = 6;
-  var margin = 4;
-
   var animations = {
     idle: [
-      {x: 0, y: 672}
+      {x: 0, y: 20}
     ],
     left: [
-      {x: 0, y: 672},
-      {x: 196, y: 288},
-      {x: 4, y: 288},
-      {x: 196, y: 288}
+      {x: 0, y: 20},
+      {x: 96, y: 20},
+      {x: 128, y: 20},
+      {x: 96, y: 20}
     ],
     right: [
-      {x: 0, y: 672},
-      {x: 580, y: 288},
-      {x: 388, y: 288},
-      {x: 580, y: 288}
+      {x: 0, y: 20},
+      {x: 32, y: 20},
+      {x: 64, y: 20},
+      {x: 32, y: 20}
     ],
     up: [
-      {x: 0, y: 672},
-      {x: 292, y: 288},
-      {x: 100, y: 288},
-      {x: 292, y: 288}
+      {x: 0, y: 20},
+      {x: 224, y: 20},
+      {x: 256, y: 20},
+      {x: 224, y: 20}
     ],
     down: [
-      {x: 0, y: 672},
-      {x: 676, y: 288},
-      {x: 484, y: 288},
-      {x: 676, y: 288}
+      {x: 0, y: 20},
+      {x: 160, y: 20},
+      {x: 192, y: 20},
+      {x: 160, y: 20}
     ]
   };
 
@@ -45,13 +39,13 @@ var PacMan = (function () {
   function PacMan (options) {
     GameObject.call(this, options);
 
-    this.canvasWidth = options.canvasWidth;
     this.level = options.level;
-    this.x = options.x;
-    this.y = options.y;
+
+    this.size = 32;
+    this.speed = 7;
 
     this.boundingBoxes = [
-      new BoundingBox(0, 0, 40, 40),
+      new BoundingBox(6, 6, 20, 20),
     ];
   }
 
@@ -60,35 +54,17 @@ var PacMan = (function () {
       this.image,
       activeAnimation[activeAnimationState].x,
       activeAnimation[activeAnimationState].y,
-      originalWidth,
-      originalHeight,
-      this.x,
-      this.y,
-      width,
-      width);
+      this.size,
+      this.size,
+      this.position.x,
+      this.position.y,
+      this.size,
+      this.size);
   };
 
   PacMan.prototype.update = function (direction) {
-    var oldPosition = {x: this.x, y: this.y};
-    updatePosition.call(this, direction);
-
-    if (hasCollidedWithWall.call(this)) {
-      this.x = oldPosition.x;
-      this.y = oldPosition.y;
-
-      if (currentDirection === direction) {
-        currentDirection = "";
-      } else {
-        updatePosition.call(this, currentDirection);
-
-        if (hasCollidedWithWall.call(this)) {
-          this.x = oldPosition.x;
-          this.y = oldPosition.y;
-          currentDirection = "";
-        }
-      }
-    } else {
-      currentDirection = direction;
+    for (var i = 0; i < this.speed; i++) {
+      updateSingleStep.call(this, direction);
     }
 
     if (currentDirection === "left") {
@@ -109,32 +85,54 @@ var PacMan = (function () {
     }
   };
 
+  function updateSingleStep(direction) {
+    var oldPosition = {x: this.position.x, y: this.position.y};
+    updatePosition.call(this, direction);
+
+    if (hasCollidedWithWall.call(this)) {
+      this.position.x = oldPosition.x;
+      this.position.y = oldPosition.y;
+
+      if (currentDirection === direction) {
+        currentDirection = "";
+      } else {
+        updatePosition.call(this, currentDirection);
+
+        if (hasCollidedWithWall.call(this)) {
+          this.position.x = oldPosition.x;
+          this.position.y = oldPosition.y;
+          currentDirection = "";
+        }
+      }
+    } else {
+      currentDirection = direction;
+    }
+  }
+
   function getNewPosition (direction) {
-    var position = {x: this.x, y: this.y};
+    var position = {x: this.position.x, y: this.position.y};
 
     if (direction === "left") {
-      position.x -= step;
+      position.x--;
     } else if (direction === "right") {
-      position.x += step;
+      position.x++;
     } else if (direction === "up") {
-      position.y -= step;
+      position.y--;
     } else if (direction === "down") {
-      position.y += step;
+      position.y++;
     }
 
-    if (position.x + width < 0) {
-      position.x = this.canvasWidth + margin;
-    } else if (position.x > this.canvasWidth) {
-      position.x = -1 * width - margin;
+    if (position.x < 0) {
+      position.x = this.level.width;
+    } else if (position.x > this.level.width) {
+      position.x = -1;
     }
 
     return position;
   }
 
   function updatePosition (direction) {
-    var newPosition = getNewPosition.call(this, direction);
-    this.x = newPosition.x;
-    this.y = newPosition.y;
+    this.position = getNewPosition.call(this, direction);
   }
 
   function hasCollidedWithWall () {
