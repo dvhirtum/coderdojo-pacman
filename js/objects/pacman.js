@@ -122,10 +122,10 @@ var PacMan = (function () {
       position.y++;
     }
 
-    if (position.x < 0) {
+    if (position.x + this.size < 0) {
       position.x = this.level.width;
     } else if (position.x > this.level.width) {
-      position.x = -1;
+      position.x = -1 * this.size;
     }
 
     return position;
