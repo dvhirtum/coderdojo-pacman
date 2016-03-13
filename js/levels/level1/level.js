@@ -53,37 +53,58 @@ var Level = (function () {
 
         if (this.map[r][c] === "h") {
           options.imagePosition = {x: 100, y: 0};
+          options.boundingBoxes = [
+            new BoundingBox(0, 6, 20, 8)
+          ];
           this.gameObjects.push(
             new BackgroundObject(options)
           );
         } else if (this.map[r][c] === "v") {
           options.imagePosition = {x: 40, y: 0};
+          options.boundingBoxes = [
+            new BoundingBox(6, 0, 8, 20)
+          ];
           this.gameObjects.push(
             new BackgroundObject(options)
           );
         } else if (this.map[r][c] === "1") {
           options.imagePosition = {x: 20, y: 0};
+          options.boundingBoxes = [
+            new BoundingBox(6, 6, 14, 8),
+            new BoundingBox(6, 6, 8, 14)
+          ];
           this.gameObjects.push(
             new BackgroundObject(options)
           );
         } else if (this.map[r][c] === "2") {
           options.imagePosition = {x: 60, y: 0};
+          options.boundingBoxes = [
+            new BoundingBox(0, 6, 14, 8),
+            new BoundingBox(6, 6, 8, 14)
+          ];
           this.gameObjects.push(
             new BackgroundObject(options)
           );
         } else if (this.map[r][c] === "3") {
           options.imagePosition = {x: 120, y: 0};
+          options.boundingBoxes = [
+            new BoundingBox(6, 6, 14, 8),
+            new BoundingBox(6, 0, 8, 14)
+          ];
           this.gameObjects.push(
             new BackgroundObject(options)
           );
         } else if (this.map[r][c] === "4") {
           options.imagePosition = {x: 80, y: 0};
+          options.boundingBoxes = [
+            new BoundingBox(0, 6, 14, 8),
+            new BoundingBox(6, 0, 8, 14)
+          ];
           this.gameObjects.push(
             new BackgroundObject(options)
           );
         } else if (this.map[r][c] === " ") {
           options.imagePosition = {x: 0, y: 0};
-          options.isSolid = false;
           this.gameObjects.push(
             new BackgroundObject(options)
           );

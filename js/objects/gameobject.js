@@ -8,14 +8,9 @@ var GameObject = (function () {
     this.position = options.position || {x: 0, y: 0};
 
     this.boundingBoxes = [];
-    this.isSolid = options.isSolid === undefined ? true : options.isSolid;
   }
 
   GameObject.prototype.draw = function () {
-    if (!this.isSolid) {
-      return;
-    }
-
     for (var i = 0; i < this.boundingBoxes.length; i++) {
       var box = this.boundingBoxes[i];
       this.context.fillStyle = "magenta";
@@ -25,8 +20,6 @@ var GameObject = (function () {
 
   GameObject.prototype.checkCollision = function (otherObject) {
     if (!(otherObject instanceof GameObject)) {
-      return false;
-    } else if (!(this.isSolid && otherObject.isSolid)) {
       return false;
     }
 

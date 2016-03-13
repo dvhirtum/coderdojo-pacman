@@ -8,9 +8,7 @@ var BackgroundObject = (function () {
     this.size = 20;
     this.imagePosition = options.imagePosition || {x: 0, y: 0};
 
-    this.boundingBoxes = [
-      new BoundingBox(0, 0, this.size, this.size)
-    ];
+    this.boundingBoxes = options.boundingBoxes || [];
   }
 
   BackgroundObject.prototype.draw = function () {
