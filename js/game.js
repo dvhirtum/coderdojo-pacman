@@ -6,6 +6,7 @@
       spriteImage = document.getElementById("sprites"),
       level,
       pacman,
+      ghosts,
       direction = "",
       now,
       last = window.timestamp(),
@@ -17,11 +18,17 @@
     context.fillRect(0, 0, width, height);
 
     level.draw();
+    for (var i = 0; i < ghosts.length; i++) {
+      ghosts[i].draw();
+    }
     pacman.draw();
   }
 
   function update() {
     pacman.update(direction);
+    for (var i = 0; i < ghosts.length; i++) {
+      ghosts[i].update();
+    }
     level.update(pacman);
   }
 
@@ -42,6 +49,10 @@
   function init() {
     level = new Level({context: context, image: spriteImage});
     pacman = new PacMan({context: context, image: spriteImage, level: level, position: {x: 264, y: 454}});
+    ghosts = [];
+    for (var i = 0; i < 4; i++) {
+      ghosts.push(new Ghost({context: context, image: spriteImage, position: {x: 216 + (32 * i), y: 294}, ghostNumber: i}));
+    }
 
     width = level.width;
     height = level.height;
