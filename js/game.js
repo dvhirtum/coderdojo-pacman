@@ -47,7 +47,7 @@
   }
 
   function init() {
-    level = new Level({context: context, image: spriteImage});
+    level = new Level({context: context, image: spriteImage, map: level01});
     pacman = new PacMan({context: context, image: spriteImage, level: level, position: {x: 264, y: 454}});
     ghosts = [];
     for (var i = 0; i < 4; i++) {

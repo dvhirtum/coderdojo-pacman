@@ -1,39 +1,6 @@
 var Level = (function () {
   function Level (options) {
-    this.map = [
-      "1hhhhhhhhhhhh21hhhhhhhhhhhh2",
-      "v............vv............v",
-      "v.1hh2.1hhh2.vv.1hhh2.1hh2.v",
-      "vpv  v.v   v.vv.v   v.v  vpv",
-      "v.3hh4.3hhh4.34.3hhh4.3hh4.v",
-      "v..........................v",
-      "v.1hh2.12.1hhhhhh2.12.1hh2.v",
-      "v.3hh4.vv.3hh21hh4.vv.3hh4.v",
-      "v......vv....vv....vv......v",
-      "3hhhh2.v3hh2 vv 1hh4v.1hhhh4",
-      "     v.v1hh4 34 3hh2v.v     ",
-      "     v.vv          vv.v     ",
-      "     v.vv 1hh  hh2 vv.v     ",
-      "hhhhh4.34 v      v 34.3hhhhh",
-      "      .   v      v   .      ",
-      "hhhhh2.12 v      v 12.1hhhhh",
-      "     v.vv 3hhhhhh4 vv.v     ",
-      "     v.vv          vv.v     ",
-      "     v.vv 1hhhhhh2 vv.v     ",
-      "1hhhh4.34 3hh21hh4 34.3hhhh2",
-      "v............vv............v",
-      "v.1hh2.1hhh2.vv.1hhh2.1hh2.v",
-      "v.3h2v.3hhh4.34.3hhh4.v1h4.v",
-      "vp..vv.......  .......vv..pv",
-      "3h2.vv.12.1hhhhhh2.12.vv.1h4",
-      "1h4.34.vv.3hh21hh4.vv.34.3h2",
-      "v......vv....vv....vv......v",
-      "v.1hhhh43hh2.vv.1hh43hhhh2.v",
-      "v.3hhhhhhhh4.34.3hhhhhhhh4.v",
-      "v..........................v",
-      "3hhhhhhhhhhhhhhhhhhhhhhhhhh4"
-    ];
-
+    this.map = options.map || [];
     this.gameObjects = [];
     this.pellets = [];
 
