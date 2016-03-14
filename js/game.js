@@ -27,7 +27,7 @@
   function update() {
     pacman.update(direction);
     for (var i = 0; i < ghosts.length; i++) {
-      ghosts[i].update();
+      ghosts[i].update(pacman);
     }
     level.update(pacman);
   }

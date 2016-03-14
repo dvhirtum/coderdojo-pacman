@@ -38,7 +38,11 @@ var Ghost = (function () {
       this.size);
   };
 
-  Ghost.prototype.update = function () {
+  Ghost.prototype.update = function (pacman) {
+    if (this.checkCollision(pacman)) {
+      pacman.die();
+    }
+
     this.updateCount++;
     if (this.updateCount >= this.animationCounter){
       this.updateCount = 0;
