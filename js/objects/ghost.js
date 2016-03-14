@@ -12,12 +12,57 @@ var Ghost = (function () {
       idle: [
         {x: 0, y: 52 + (this.ghostNumber * 32)},
         {x: 32, y: 52 + (this.ghostNumber * 32)}
+      ],
+      left: [
+        {x: 128, y: 52 + (this.ghostNumber * 32)},
+        {x: 160, y: 52 + (this.ghostNumber * 32)}
+      ],
+      right: [
+        {x: 192, y: 52 + (this.ghostNumber * 32)},
+        {x: 224, y: 52 + (this.ghostNumber * 32)}
+      ],
+      up: [
+        {x: 256, y: 52 + (this.ghostNumber * 32)},
+        {x: 288, y: 52 + (this.ghostNumber * 32)}
+      ],
+      down: [
+        {x: 64, y: 52 + (this.ghostNumber * 32)},
+        {x: 96, y: 52 + (this.ghostNumber * 32)}
+      ],
+      scared: [
+        {x: 224, y: 180},
+        {x: 256, y: 180}
+      ],
+      recovering: [
+        {x: 224, y: 180},
+        {x: 256, y: 180},
+        {x: 224, y: 180},
+        {x: 256, y: 180},
+        {x: 160, y: 180},
+        {x: 192, y: 180},
+        {x: 160, y: 180},
+        {x: 192, y: 180}
+      ],
+      eatenIdle: [
+        {x: 0, y: 180}
+      ],
+      eatenLeft: [
+        {x: 64, y: 180}
+      ],
+      eatenRight: [
+        {x: 96, y: 180}
+      ],
+      eatenUp: [
+        {x: 128, y: 180}
+      ],
+      eatenDown: [
+        {x: 32, y: 180}
       ]
     };
 
     this.activeAnimation = this.animations.idle;
     this.activeAnimationState = 0;
-    this.animationCounter = 2;
+    this.animationCounter = 3;
     this.updateCount = 0;
 
     this.boundingBoxes = [
