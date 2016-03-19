@@ -29,7 +29,7 @@
     for (var i = 0; i < ghosts.length; i++) {
       ghosts[i].update(pacman);
     }
-    level.update(pacman);
+    level.update(pacman, ghosts);
   }
 
   function run() {

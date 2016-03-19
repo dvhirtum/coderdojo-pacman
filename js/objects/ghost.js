@@ -70,6 +70,10 @@ var Ghost = (function () {
     ];
   }
 
+  Ghost.prototype.isScared = function () {
+    this.activeAnimation = this.animations.scared;
+  };
+
   Ghost.prototype.draw = function () {
     this.context.drawImage(
       this.image,

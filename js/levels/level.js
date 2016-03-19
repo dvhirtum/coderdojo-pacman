@@ -97,9 +97,14 @@ var Level = (function () {
     }
   };
 
-  Level.prototype.update = function (pacman) {
+  Level.prototype.update = function (pacman, ghosts = []) {
     for (var i = this.pellets.length - 1; i >= 0; i--) {
       if (this.pellets[i].checkCollision(pacman)) {
+        if (this.pellets[i] instanceof PowerPellet) {
+          for (var j = 0; j < ghosts.length; j++) {
+            ghosts[j].isScared();
+          }
+        }
         this.pellets.splice(i, 1);
       }
     }
