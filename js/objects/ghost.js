@@ -8,9 +8,8 @@ var Ghost = (function () {
     this.size = 32;
     this.ghostNumber = options.ghostNumber || 0;
 
-    //this.scaredTime = 0;
-    this.maxScaredTime = 10000;
-    this.maxRecoveringTime = 5000;
+    this.maxScaredTime = 6;
+    this.maxRecoveringTime = 4;
 
     this.animations = {
       idle: [
@@ -80,6 +79,10 @@ var Ghost = (function () {
   };
 
   Ghost.prototype.draw = function () {
+    if (this.activeAnimationState >= this.activeAnimation.length) {
+      this.activeAnimationState = 0;
+    }
+
     this.context.drawImage(
       this.image,
       this.activeAnimation[this.activeAnimationState].x,
@@ -98,16 +101,13 @@ var Ghost = (function () {
     }
 
     if (this.scaredTime !== undefined) {
-      var delta = window.timestamp() - this.scaredTime;
+      var delta = (window.timestamp() - this.scaredTime) / 1000;
       if (delta <= this.maxScaredTime) {
         this.activeAnimation = this.animations.scared;
       } else if (delta > this.maxScaredTime && delta <= (this.maxScaredTime + this.maxRecoveringTime)) {
         this.activeAnimation = this.animations.recovering;
       } else {
         this.activeAnimation = this.animations.idle;
-        if (this.activeAnimationState >= this.activeAnimation.length) {
-          this.activeAnimationState = 0;
-        }
       }
     }
 
@@ -115,9 +115,6 @@ var Ghost = (function () {
     if (this.updateCount >= this.animationCounter){
       this.updateCount = 0;
       this.activeAnimationState++;
-      if (this.activeAnimationState >= this.activeAnimation.length) {
-        this.activeAnimationState = 0;
-      }
     }
   };
 
