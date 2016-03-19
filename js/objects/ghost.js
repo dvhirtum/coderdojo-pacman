@@ -8,6 +8,10 @@ var Ghost = (function () {
     this.size = 32;
     this.ghostNumber = options.ghostNumber || 0;
 
+    //this.scaredTime = 0;
+    this.maxScaredTime = 10000;
+    this.maxRecoveringTime = 5000;
+
     this.animations = {
       idle: [
         {x: 0, y: 52 + (this.ghostNumber * 32)},
@@ -72,6 +76,7 @@ var Ghost = (function () {
 
   Ghost.prototype.isScared = function () {
     this.activeAnimation = this.animations.scared;
+    this.scaredTime = window.timestamp();
   };
 
   Ghost.prototype.draw = function () {
@@ -90,6 +95,20 @@ var Ghost = (function () {
   Ghost.prototype.update = function (pacman) {
     if (this.checkCollision(pacman)) {
       pacman.die();
+    }
+
+    if (this.scaredTime !== undefined) {
+      var delta = window.timestamp() - this.scaredTime;
+      if (delta <= this.maxScaredTime) {
+        this.activeAnimation = this.animations.scared;
+      } else if (delta > this.maxScaredTime && delta <= (this.maxScaredTime + this.maxRecoveringTime)) {
+        this.activeAnimation = this.animations.recovering;
+      } else {
+        this.activeAnimation = this.animations.idle;
+        if (this.activeAnimationState >= this.activeAnimation.length) {
+          this.activeAnimationState = 0;
+        }
+      }
     }
 
     this.updateCount++;
