@@ -129,7 +129,7 @@ var PacMan = (function () {
     var oldPosition = {x: this.position.x, y: this.position.y};
     updatePosition.call(this, direction);
 
-    if (hasCollidedWithWall.call(this)) {
+    if (this.level.checkWallCollision(this)) {
       this.position.x = oldPosition.x;
       this.position.y = oldPosition.y;
 
@@ -138,7 +138,7 @@ var PacMan = (function () {
       } else {
         updatePosition.call(this, this.currentDirection);
 
-        if (hasCollidedWithWall.call(this)) {
+        if (this.level.checkWallCollision(this)) {
           this.position.x = oldPosition.x;
           this.position.y = oldPosition.y;
           this.currentDirection = "";
@@ -173,16 +173,6 @@ var PacMan = (function () {
 
   function updatePosition (direction) {
     this.position = getNewPosition.call(this, direction);
-  }
-
-  function hasCollidedWithWall () {
-    for (var i = 0; i < this.level.gameObjects.length; i++) {
-      if (this.level.gameObjects[i].checkCollision(this)) {
-        return true;
-      }
-    }
-
-    return false;
   }
 
   return PacMan;

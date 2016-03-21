@@ -1,114 +1,119 @@
-var Level = (function () {
-  function Level (options) {
-    this.map = options.map || [];
-    this.gameObjects = [];
-    this.pellets = [];
+"use strict";
 
-    this.height = this.map.length * 20;
-    this.width = this.map[0].length * 20;
-    this.numberOfRows = this.map.length;
-    this.numberOfColumns = this.map[0].length;
+function makeLevel (options) {
+  let map = options.map || [],
+      gameObjects = [],
+      pellets = [];
 
-    for (var r = 0; r < this.map.length; r++) {
-      for (var c = 0; c < this.map[r].length; c++) {
-        var options =
-        {
-          context: options.context,
-          image: options.image,
-          position: {x: c * 20, y: r * 20}
-        };
+  for (let r = 0; r < map.length; r++) {
+    for (let c = 0; c < map[r].length; c++) {
+      let settings =
+      {
+        context: options.context,
+        image: options.image,
+        position: {x: c * 20, y: r * 20}
+      };
 
-        if (this.map[r][c] === "h") {
-          options.imagePosition = {x: 100, y: 0};
-          options.boundingBoxes = [
-            new BoundingBox(0, 6, 20, 8)
-          ];
-          this.gameObjects.push(
-            new BackgroundObject(options)
-          );
-        } else if (this.map[r][c] === "v") {
-          options.imagePosition = {x: 40, y: 0};
-          options.boundingBoxes = [
-            new BoundingBox(6, 0, 8, 20)
-          ];
-          this.gameObjects.push(
-            new BackgroundObject(options)
-          );
-        } else if (this.map[r][c] === "1") {
-          options.imagePosition = {x: 20, y: 0};
-          options.boundingBoxes = [
-            new BoundingBox(6, 6, 14, 8),
-            new BoundingBox(6, 6, 8, 14)
-          ];
-          this.gameObjects.push(
-            new BackgroundObject(options)
-          );
-        } else if (this.map[r][c] === "2") {
-          options.imagePosition = {x: 60, y: 0};
-          options.boundingBoxes = [
-            new BoundingBox(0, 6, 14, 8),
-            new BoundingBox(6, 6, 8, 14)
-          ];
-          this.gameObjects.push(
-            new BackgroundObject(options)
-          );
-        } else if (this.map[r][c] === "3") {
-          options.imagePosition = {x: 120, y: 0};
-          options.boundingBoxes = [
-            new BoundingBox(6, 6, 14, 8),
-            new BoundingBox(6, 0, 8, 14)
-          ];
-          this.gameObjects.push(
-            new BackgroundObject(options)
-          );
-        } else if (this.map[r][c] === "4") {
-          options.imagePosition = {x: 80, y: 0};
-          options.boundingBoxes = [
-            new BoundingBox(0, 6, 14, 8),
-            new BoundingBox(6, 0, 8, 14)
-          ];
-          this.gameObjects.push(
-            new BackgroundObject(options)
-          );
-        } else if (this.map[r][c] === " ") {
-          options.imagePosition = {x: 0, y: 0};
-          this.gameObjects.push(
-            new BackgroundObject(options)
-          );
-        } else if (this.map[r][c] === ".") {
-          this.pellets.push(
-            new Pellet(options)
-          );
-        } else if (this.map[r][c] === "p") {
-          this.pellets.push(
-            new PowerPellet(options)
-          );
-        }
+      if (map[r][c] === "h") {
+        settings.imagePosition = {x: 100, y: 0};
+        settings.boundingBoxes = [
+          new BoundingBox(0, 6, 20, 8)
+        ];
+        gameObjects.push(
+          new BackgroundObject(settings)
+        );
+      } else if (map[r][c] === "v") {
+        settings.imagePosition = {x: 40, y: 0};
+        settings.boundingBoxes = [
+          new BoundingBox(6, 0, 8, 20)
+        ];
+        gameObjects.push(
+          new BackgroundObject(settings)
+        );
+      } else if (map[r][c] === "1") {
+        settings.imagePosition = {x: 20, y: 0};
+        settings.boundingBoxes = [
+          new BoundingBox(6, 6, 14, 8),
+          new BoundingBox(6, 6, 8, 14)
+        ];
+        gameObjects.push(
+          new BackgroundObject(settings)
+        );
+      } else if (map[r][c] === "2") {
+        settings.imagePosition = {x: 60, y: 0};
+        settings.boundingBoxes = [
+          new BoundingBox(0, 6, 14, 8),
+          new BoundingBox(6, 6, 8, 14)
+        ];
+        gameObjects.push(
+          new BackgroundObject(settings)
+        );
+      } else if (map[r][c] === "3") {
+        settings.imagePosition = {x: 120, y: 0};
+        settings.boundingBoxes = [
+          new BoundingBox(6, 6, 14, 8),
+          new BoundingBox(6, 0, 8, 14)
+        ];
+        gameObjects.push(
+          new BackgroundObject(settings)
+        );
+      } else if (map[r][c] === "4") {
+        settings.imagePosition = {x: 80, y: 0};
+        settings.boundingBoxes = [
+          new BoundingBox(0, 6, 14, 8),
+          new BoundingBox(6, 0, 8, 14)
+        ];
+        gameObjects.push(
+          new BackgroundObject(settings)
+        );
+      } else if (map[r][c] === " ") {
+        settings.imagePosition = {x: 0, y: 0};
+        gameObjects.push(
+          new BackgroundObject(settings)
+        );
+      } else if (map[r][c] === ".") {
+        pellets.push(
+          new Pellet(settings)
+        );
+      } else if (map[r][c] === "p") {
+        pellets.push(
+          new PowerPellet(settings)
+        );
       }
     }
   }
 
-  Level.prototype.draw = function () {
-    for (var i = 0; i < this.gameObjects.length; i++) {
-      this.gameObjects[i].draw();
-    }
-    for (var i = 0; i < this.pellets.length; i++) {
-      this.pellets[i].draw();
-    }
-  };
-
-  Level.prototype.update = function (pacman, ghosts = []) {
-    for (var i = this.pellets.length - 1; i >= 0; i--) {
-      if (this.pellets[i].checkCollision(pacman)) {
-        if (this.pellets[i] instanceof PowerPellet) {
-          for (var j = 0; j < ghosts.length; j++) {
-            ghosts[j].isScared();
-          }
-        }
-        this.pellets.splice(i, 1);
+  return {
+    getHeight: function () { return map.length * 20; },
+    getWidth: function () { return map[0].length * 20; },
+    draw: function () {
+      for (let i = 0; i < gameObjects.length; i++) {
+        gameObjects[i].draw();
       }
+      for (let i = 0; i < pellets.length; i++) {
+        pellets[i].draw();
+      }
+    },
+    update: function (pacman, ghosts) {
+      for (let i = pellets.length - 1; i >= 0; i--) {
+        if (pellets[i].checkCollision(pacman)) {
+          if (pellets[i] instanceof PowerPellet) {
+            for (var j = 0; j < ghosts.length; j++) {
+              ghosts[j].isScared();
+            }
+          }
+          pellets.splice(i, 1);
+        }
+      }
+    },
+    checkWallCollision: function (otherObject) {
+      for (var i = 0; i < gameObjects.length; i++) {
+        if (gameObjects[i].checkCollision(otherObject)) {
+          return true;
+        }
+      }
+
+      return false;
     }
   };
-
-  return Level;
-}());
+}
