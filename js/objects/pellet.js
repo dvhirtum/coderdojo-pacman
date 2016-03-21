@@ -1,30 +1,34 @@
-var Pellet = (function () {
-  Pellet.prototype = new GameObject();
-  Pellet.prototype.constructor = Pellet;
+"use strict";
 
-  function Pellet (options) {
-    GameObject.call(this, options);
+let makePellet = function (options) {
+  let pellet = makeGameObject(options);
 
-    this.size = 20;
-    this.imagePosition = {x: 140, y: 0};
+  let imagePosition = {x: 140, y: 0};
 
-    this.boundingBoxes = [
-      makeBoundingBox(8, 8, 4, 4)
-    ];
+  pellet.setBoundingBoxes([
+    makeBoundingBox(8, 8, 4, 4)
+  ]);
+
+  pellet.setImagePosition = function(position) {
+    imagePosition = position;
   }
 
-  Pellet.prototype.draw = function () {
-    this.context.drawImage(
-      this.image,
-      this.imagePosition.x,
-      this.imagePosition.y,
-      this.size,
-      this.size,
-      this.position.x,
-      this.position.y,
-      this.size,
-      this.size);
+  pellet.draw = function () {
+    pellet.getContext().drawImage(
+      pellet.getImage(),
+      imagePosition.x,
+      imagePosition.y,
+      20,
+      20,
+      pellet.getPosition().x,
+      pellet.getPosition().y,
+      20,
+      20);
   };
 
-  return Pellet;
-}());
+  pellet.isPowerPellet = function () {
+    return false;
+  };
+
+  return pellet;
+};

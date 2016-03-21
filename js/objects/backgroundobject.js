@@ -1,28 +1,22 @@
-var BackgroundObject = (function () {
-  BackgroundObject.prototype = new GameObject();
-  BackgroundObject.prototype.constructor = BackgroundObject;
+"use strict";
 
-  function BackgroundObject (options) {
-    GameObject.call(this, options);
+let makeBackgroundObject = function (options) {
+  let backgroundObject = makeGameObject(options);
 
-    this.size = 20;
-    this.imagePosition = options.imagePosition || {x: 0, y: 0};
+  let imagePosition = options.imagePosition || {x: 0, y: 0};
 
-    this.boundingBoxes = options.boundingBoxes || [];
-  }
-
-  BackgroundObject.prototype.draw = function () {
-    this.context.drawImage(
-      this.image,
-      this.imagePosition.x,
-      this.imagePosition.y,
-      this.size,
-      this.size,
-      this.position.x,
-      this.position.y,
-      this.size,
-      this.size);
+  backgroundObject.draw = function () {
+    backgroundObject.getContext().drawImage(
+      backgroundObject.getImage(),
+      imagePosition.x,
+      imagePosition.y,
+      20,
+      20,
+      backgroundObject.getPosition().x,
+      backgroundObject.getPosition().y,
+      20,
+      20);
   };
 
-  return BackgroundObject;
-}());
+  return backgroundObject;
+};

@@ -1,6 +1,6 @@
 "use strict";
 
-function makeLevel (options) {
+let makeLevel = function (options) {
   let context = options.context,
       image = options.image,
       map = options.map || [],
@@ -31,7 +31,7 @@ function makeLevel (options) {
       }
       for (let i = pellets.length - 1; i >= 0; i--) {
         if (pellets[i].checkCollision(pacman)) {
-          if (pellets[i] instanceof PowerPellet) {
+          if (pellets[i].isPowerPellet()) {
             for (var j = 0; j < ghosts.length; j++) {
               ghosts[j].isScared();
             }
@@ -58,17 +58,17 @@ function makeLevel (options) {
 
         if (map[r][c] === ".") {
           pellets.push(
-            new Pellet(settings)
+            makePellet(settings)
           );
         } else if (map[r][c] === "*") {
           pellets.push(
-            new PowerPellet(settings)
+            makePowerPellet(settings)
           );
         } else if (map[r][c] === "P") {
-          pacman = new PacMan({context, image, level: level, position: {x: c * 20 + 4, y: r * 20 - 6}});
+          pacman = makePacMan({context, image, level: level, position: {x: c * 20 + 4, y: r * 20 - 6}});
         } else if (map[r][c] === "G") {
           for (var i = 0; i < 4; i++) {
-            ghosts.push(new Ghost({context, image, position: {x: c * 20 + (32 * i) - 4, y: r * 20 - 6}, ghostNumber: i}));
+            ghosts.push(makeGhost({context, image, position: {x: c * 20 + (32 * i) - 4, y: r * 20 - 6}, ghostNumber: i}));
           }
         } else {
           if (map[r][c] === "-") {
@@ -109,7 +109,7 @@ function makeLevel (options) {
             settings.imagePosition = {x: 0, y: 0};
           }
           backgroundObjects.push(
-            new BackgroundObject(settings)
+            makeBackgroundObject(settings)
           );
         }
       }
@@ -119,4 +119,4 @@ function makeLevel (options) {
   initializeLevel();
 
   return level;
-}
+};

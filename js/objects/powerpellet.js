@@ -1,18 +1,17 @@
-var PowerPellet = (function () {
-  PowerPellet.prototype = new Pellet();
-  PowerPellet.prototype.constructor = PowerPellet;
+"use strict";
 
-  var size = 20;
+let makePowerPellet = function (options) {
+  let powerPellet = makePellet(options);
 
-  function PowerPellet (options) {
-    Pellet.call(this, options);
+  powerPellet.setImagePosition({x: 160, y: 0});
 
-    this.imagePosition.x = 160;
+  powerPellet.setBoundingBoxes([
+    makeBoundingBox(4, 4, 12, 12)
+  ]);
 
-    this.boundingBoxes = [
-      makeBoundingBox(4, 4, 12, 12)
-    ];
-  }
+  powerPellet.isPowerPellet = function () {
+    return true;
+  };
 
-  return PowerPellet;
-}());
+  return powerPellet;
+};
