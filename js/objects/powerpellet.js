@@ -10,7 +10,7 @@ var PowerPellet = (function () {
     this.imagePosition.x = 160;
 
     this.boundingBoxes = [
-      new BoundingBox(4, 4, 12, 12)
+      makeBoundingBox(4, 4, 12, 12)
     ];
   }
 

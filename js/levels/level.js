@@ -74,36 +74,36 @@ function makeLevel (options) {
           if (map[r][c] === "-") {
             settings.imagePosition = {x: 100, y: 0};
             settings.boundingBoxes = [
-              new BoundingBox(0, 6, 20, 8)
+              makeBoundingBox(0, 6, 20, 8)
             ];
           } else if (map[r][c] === "|") {
             settings.imagePosition = {x: 40, y: 0};
             settings.boundingBoxes = [
-              new BoundingBox(6, 0, 8, 20)
+              makeBoundingBox(6, 0, 8, 20)
             ];
           } else if (map[r][c] === "1") {
             settings.imagePosition = {x: 20, y: 0};
             settings.boundingBoxes = [
-              new BoundingBox(6, 6, 14, 8),
-              new BoundingBox(6, 6, 8, 14)
+              makeBoundingBox(6, 6, 14, 8),
+              makeBoundingBox(6, 6, 8, 14)
             ];
           } else if (map[r][c] === "2") {
             settings.imagePosition = {x: 60, y: 0};
             settings.boundingBoxes = [
-              new BoundingBox(0, 6, 14, 8),
-              new BoundingBox(6, 6, 8, 14)
+              makeBoundingBox(0, 6, 14, 8),
+              makeBoundingBox(6, 6, 8, 14)
             ];
           } else if (map[r][c] === "3") {
             settings.imagePosition = {x: 120, y: 0};
             settings.boundingBoxes = [
-              new BoundingBox(6, 6, 14, 8),
-              new BoundingBox(6, 0, 8, 14)
+              makeBoundingBox(6, 6, 14, 8),
+              makeBoundingBox(6, 0, 8, 14)
             ];
           } else if (map[r][c] === "4") {
             settings.imagePosition = {x: 80, y: 0};
             settings.boundingBoxes = [
-              new BoundingBox(0, 6, 14, 8),
-              new BoundingBox(6, 0, 8, 14)
+              makeBoundingBox(0, 6, 14, 8),
+              makeBoundingBox(6, 0, 8, 14)
             ];
           } else if (map[r][c] === " ") {
             settings.imagePosition = {x: 0, y: 0};

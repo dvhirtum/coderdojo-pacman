@@ -25,7 +25,7 @@ var GameObject = (function () {
 
     for (var i = 0; i < this.boundingBoxes.length; i++) {
       var boundingBox = this.boundingBoxes[i];
-      if (!(boundingBox instanceof BoundingBox)) {
+      if (boundingBox.getType() !== "BoundingBox") {
         continue;
       }
       if (checkBoxCollision.call(this, boundingBox, otherObject)) {
@@ -39,7 +39,7 @@ var GameObject = (function () {
   function checkBoxCollision (boundingBox, otherObject) {
     for (var i = 0; i < otherObject.boundingBoxes.length; i++) {
       var otherBox = otherObject.boundingBoxes[i];
-      if (!(otherBox instanceof BoundingBox)) {
+      if (otherBox.getType() !== "BoundingBox") {
         continue;
       }
       if ((this.position.x + boundingBox.x + boundingBox.width) <= otherObject.position.x + otherBox.x) {

@@ -9,7 +9,7 @@ var Pellet = (function () {
     this.imagePosition = {x: 140, y: 0};
 
     this.boundingBoxes = [
-      new BoundingBox(8, 8, 4, 4)
+      makeBoundingBox(8, 8, 4, 4)
     ];
   }
 

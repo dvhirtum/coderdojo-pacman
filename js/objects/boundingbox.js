@@ -1,10 +1,15 @@
-var BoundingBox = (function () {
-  function BoundingBox (x, y, width, height) {
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
-  }
+"use strict";
 
-  return BoundingBox;
-}());
+let makeBoundingBox = function BoundingBox (x, y, width, height) {
+  const TYPE = "BoundingBox";
+
+  return {
+    x,
+    y,
+    width,
+    height,
+    getType: function () {
+      return TYPE;
+    }
+  };
+};

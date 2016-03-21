@@ -69,7 +69,7 @@ var Ghost = (function () {
     this.updateCount = 0;
 
     this.boundingBoxes = [
-      new BoundingBox(0, 0, 32, 32),
+      makeBoundingBox(0, 0, 32, 32),
     ];
   }
 

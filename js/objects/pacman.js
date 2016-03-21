@@ -65,7 +65,7 @@ var PacMan = (function () {
     this.speed = 7;
 
     this.boundingBoxes = [
-      new BoundingBox(0, 0, 32, 32),
+      makeBoundingBox(0, 0, 32, 32),
     ];
   }
 
