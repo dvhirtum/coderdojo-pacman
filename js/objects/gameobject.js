@@ -23,11 +23,8 @@ let makeGameObject = function (options) {
     checkCollision: function (otherObject) {
       for (var i = 0; i < boundingBoxes.length; i++) {
         var boundingBox = boundingBoxes[i];
-        var otherBoxes = otherObject.getBoundingBoxes();
-        for (let i = 0; i < otherBoxes.length; i++) {
-          if (boundingBox.checkCollision(position, otherObject.getPosition(), otherBoxes[i])) {
-            return true;
-          }
+        if (boundingBox.checkCollision(position, otherObject)) {
+          return true;
         }
       }
 
