@@ -163,8 +163,8 @@ var PacMan = (function () {
     }
 
     if (position.x + this.size < 0) {
-      position.x = this.level.width;
-    } else if (position.x > this.level.width) {
+      position.x = this.level.getWidth();
+    } else if (position.x > this.level.getWidth()) {
       position.x = -1 * this.size;
     }
 
