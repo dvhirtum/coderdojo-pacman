@@ -14,70 +14,54 @@ function makeLevel (options) {
         position: {x: c * 20, y: r * 20}
       };
 
-      if (map[r][c] === "h") {
-        settings.imagePosition = {x: 100, y: 0};
-        settings.boundingBoxes = [
-          new BoundingBox(0, 6, 20, 8)
-        ];
-        gameObjects.push(
-          new BackgroundObject(settings)
-        );
-      } else if (map[r][c] === "v") {
-        settings.imagePosition = {x: 40, y: 0};
-        settings.boundingBoxes = [
-          new BoundingBox(6, 0, 8, 20)
-        ];
-        gameObjects.push(
-          new BackgroundObject(settings)
-        );
-      } else if (map[r][c] === "1") {
-        settings.imagePosition = {x: 20, y: 0};
-        settings.boundingBoxes = [
-          new BoundingBox(6, 6, 14, 8),
-          new BoundingBox(6, 6, 8, 14)
-        ];
-        gameObjects.push(
-          new BackgroundObject(settings)
-        );
-      } else if (map[r][c] === "2") {
-        settings.imagePosition = {x: 60, y: 0};
-        settings.boundingBoxes = [
-          new BoundingBox(0, 6, 14, 8),
-          new BoundingBox(6, 6, 8, 14)
-        ];
-        gameObjects.push(
-          new BackgroundObject(settings)
-        );
-      } else if (map[r][c] === "3") {
-        settings.imagePosition = {x: 120, y: 0};
-        settings.boundingBoxes = [
-          new BoundingBox(6, 6, 14, 8),
-          new BoundingBox(6, 0, 8, 14)
-        ];
-        gameObjects.push(
-          new BackgroundObject(settings)
-        );
-      } else if (map[r][c] === "4") {
-        settings.imagePosition = {x: 80, y: 0};
-        settings.boundingBoxes = [
-          new BoundingBox(0, 6, 14, 8),
-          new BoundingBox(6, 0, 8, 14)
-        ];
-        gameObjects.push(
-          new BackgroundObject(settings)
-        );
-      } else if (map[r][c] === " ") {
-        settings.imagePosition = {x: 0, y: 0};
-        gameObjects.push(
-          new BackgroundObject(settings)
-        );
-      } else if (map[r][c] === ".") {
+      if (map[r][c] === ".") {
         pellets.push(
           new Pellet(settings)
         );
-      } else if (map[r][c] === "p") {
+      } else if (map[r][c] === "*") {
         pellets.push(
           new PowerPellet(settings)
+        );
+      } else {
+        if (map[r][c] === "-") {
+          settings.imagePosition = {x: 100, y: 0};
+          settings.boundingBoxes = [
+            new BoundingBox(0, 6, 20, 8)
+          ];
+        } else if (map[r][c] === "|") {
+          settings.imagePosition = {x: 40, y: 0};
+          settings.boundingBoxes = [
+            new BoundingBox(6, 0, 8, 20)
+          ];
+        } else if (map[r][c] === "1") {
+          settings.imagePosition = {x: 20, y: 0};
+          settings.boundingBoxes = [
+            new BoundingBox(6, 6, 14, 8),
+            new BoundingBox(6, 6, 8, 14)
+          ];
+        } else if (map[r][c] === "2") {
+          settings.imagePosition = {x: 60, y: 0};
+          settings.boundingBoxes = [
+            new BoundingBox(0, 6, 14, 8),
+            new BoundingBox(6, 6, 8, 14)
+          ];
+        } else if (map[r][c] === "3") {
+          settings.imagePosition = {x: 120, y: 0};
+          settings.boundingBoxes = [
+            new BoundingBox(6, 6, 14, 8),
+            new BoundingBox(6, 0, 8, 14)
+          ];
+        } else if (map[r][c] === "4") {
+          settings.imagePosition = {x: 80, y: 0};
+          settings.boundingBoxes = [
+            new BoundingBox(0, 6, 14, 8),
+            new BoundingBox(6, 0, 8, 14)
+          ];
+        } else if (map[r][c] === " ") {
+          settings.imagePosition = {x: 0, y: 0};
+        }
+        gameObjects.push(
+          new BackgroundObject(settings)
         );
       }
     }
